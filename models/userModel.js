@@ -23,10 +23,6 @@ const userSchema = new mongoose.Schema({
       confirmPassword: {
         type: String,
       },
-      dateOfBirth: {
-        type: Date,
-        required: [true, "Please provide your date of birth to create an account"],
-      },
       gender: {
         type: String,
         required: [true, "Please provide a gender to create an account"],
@@ -41,7 +37,10 @@ const userSchema = new mongoose.Schema({
         required:[true, "Please select a role on the platform"],
         enum: [ "admin", "user"]
       },
-
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
 })
 
 
