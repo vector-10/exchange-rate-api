@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/api/v1', authRoute);
-app.use('/api/v1', productRoute);
-app.use('/api/v1', currencyRoute);
+// app.use('/api/v1', productRoute);
+// app.use('/api/v1', currencyRoute);
 
 
 

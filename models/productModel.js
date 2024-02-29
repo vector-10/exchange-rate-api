@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
     // attributes for the product model
-    name: {
+      name: {
         type: String,
         required: [true, "Please provide a name for the product"]
       },

@@ -62,6 +62,28 @@ const loginUser = catchAsyncErrors(async(req, res, next) => {
     sendToken(user, 200, res);
   });
 
+  
+
+const getAllUsers = catchAsyncErrors(async(req, res, next) => {
+  try {
+    const numberOfUsers = await User.countDocuments({});
+    if (numberOfUsers === 0) {
+      return next(new ErrorHandler ("No users currently exist in that database", 500))
+    }
+    // get all users from the database
+    const allUsers = await User.find();
+    
+    // return users from the databse in json
+    res.status(200).json({
+      message: "All users successfully found",
+      allUsers,
+      userCount: numberOfUsers
+    })
+  } catch (error) {
+    return next(new ErrorHandler ("Users could not be be retreived from the database", error, 500))
+  }  
+});
+
 
 //To get user profile
 const getUserProfile = catchAsyncErrors(async(req, res, next) => {
@@ -170,28 +192,6 @@ const updateProfile = catchAsyncErrors(async(req, res, next) => {
 
 
 
-//Get all users => /api/v1/admin/users
-const getAllUsers = catchAsyncErrors(async(req, res, next) => {
-  try {
-    const numberOfUsers = await User.countDocuments({});
-    if (numberOfUsers === 0) {
-      return next(new ErrorHandler ("No users currently exist in that database", 500))
-    }
-    // get all users from the database
-    const allUsers = await User.find();
-    
-    // return users from the databse in json
-    res.status(200).json({
-      message: "All users successfully found",
-      allUsers,
-      userCount: numberOfUsers
-    })
-  } catch (error) {
-    return next(new ErrorHandler ("Users could not be be retreived from the database", error, 500))
-  }  
-});
-
-
 const logoutUser = catchAsyncErrors(async(req, res, next) => {
   // inorder to logout users we have to expire the token stored in the cookie.
   res.cookie("token", null, {
@@ -230,9 +230,9 @@ module.exports = {
   registerUser,
   loginUser,
   getAllUsers,
-  deleteUser
-  getUserProfile
+  deleteUser,
+  getUserProfile,
   updateProfile,
-  updatePassword
+  updatePassword,
   logoutUser
 }
