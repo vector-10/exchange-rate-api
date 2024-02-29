@@ -2,9 +2,10 @@
   "name": "exchange-rate-api",
   "version": "1.0.0",
   "description": "An API built to convert the price of commodities to any currency for international purchases.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",

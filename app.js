@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const sampleDataRoute = require('./routes/sampleRoute');
+const authRoute = require('./routes/userRoute');
+const productRoute = require('./routes/productRoute')
+const currencyRoute = require('./routes/currencyRoute');
 
 // Middleware
 app.use(bodyParser.json());
@@ -11,7 +13,11 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
-app.get('/api/v1', sampleDataRoute);
+// routes
+app.use('/api/v1', authRoute);
+app.use('/api/v1', productRoute);
+app.use('/api/v1', currencyRoute);
+
 
 
 // Start the server
