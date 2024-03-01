@@ -35,13 +35,15 @@ const registerUser  = catchAsyncErrors(async(req, res, next) => {
         // the return user json object format is defined in the JWToken.js utility
         sendToken(user, 201, res)
     } catch (error) {
-        
+        //console.log(error);
+        return next(new ErrorHandler("Error creating new user account:", error, 500))
     }
 });
 
 
 const loginUser = catchAsyncErrors(async(req, res, next) => {
-    // first we set login credentials to he used on signup
+    try {
+      // first we set login credentials to he used on signup
     const { email, password } = req.body;
     //check to ensure email and password are provided
     if(!email || !password) {
@@ -60,6 +62,10 @@ const loginUser = catchAsyncErrors(async(req, res, next) => {
     }
     //once we are sure of everything, we can then login in the user
     sendToken(user, 200, res);
+    } catch (error) {
+      //console.log(error)
+      return next(new ErrorHandler("Error, couldnt sign user in", 401));
+    }
   });
 
   
